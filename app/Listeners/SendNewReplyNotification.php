@@ -12,7 +12,7 @@ class SendNewReplyNotification
     {
         foreach ($event->reply->replyAble()->subscriptions() as $subscription) {
             if ($this->replyAuthorDoesNotMatchSubscriber($event->reply->author(), $subscription)) {
-                $subscription->user()->notify(new NewReplyNotification($event->reply));
+                $subscription->user()->notify(new NewReplyNotification($event->reply, $subscription));
             }
         }
     }

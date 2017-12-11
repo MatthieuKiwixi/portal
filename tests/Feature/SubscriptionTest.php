@@ -108,4 +108,17 @@ class SubscriptionTest extends BrowserKitTestCase
             ->seePageIs("/forum/$slug")
             ->see("You're now unsubscribed from this thread.");
     }
+
+    /** @test */
+    public function users_can_unsubscribe_through_a_token_link()
+    {
+        $subscription = factory(Subscription::class)->create();
+        $thread = $subscription->subscriptionAble();
+
+        $this->visit("/subscriptions/{$subscription->uuid()}/unsubscribe")
+            ->seePageIs("/forum/{$thread->slug()}")
+            ->see("You're now unsubscribed from this thread.");
+
+        $this->notSeeInDatabase('subscriptions', ['uuid' => $subscription->uuid()]);
+    }
 }

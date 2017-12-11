@@ -9,7 +9,8 @@ class CreateSubscriptionsTable extends Migration
     public function up()
     {
         Schema::create('subscriptions', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('uuid');
+            $table->primary('uuid');
             $table->integer('user_id')->unsigned();
             $table->integer('subscriptionable_id');
             $table->string('subscriptionable_type')->default('');

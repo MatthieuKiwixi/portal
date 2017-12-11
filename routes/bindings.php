@@ -6,6 +6,9 @@ Route::bind('email_address', function ($emailAddress) {
 Route::bind('reply', function ($id) {
     return App\Models\Reply::findOrFail($id);
 });
+Route::bind('subscription', function ($uuid) {
+    return App\Models\Subscription::withUuid($uuid)->firstOrFail();
+});
 Route::bind('tag', function ($slug) {
     return App\Models\Tag::findBySlug($slug);
 });

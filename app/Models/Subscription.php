@@ -6,13 +6,24 @@ use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
+use Spatie\BinaryUuid\HasBinaryUuid;
+use Spatie\BinaryUuid\HasUuidPrimaryKey;
 
 class Subscription extends Model
 {
+    use HasBinaryUuid, HasUuidPrimaryKey;
+
     /**
      * {@inheritdoc}
      */
     protected $table = 'subscriptions';
+
+    public function uuid(): UuidInterface
+    {
+        return Uuid::fromString($this->uuid_text);
+    }
 
     public function user(): User
     {
